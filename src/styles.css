@@ -1,0 +1,234 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system — "Engineering as Investigation"
+ * Paper / ink foundation, single vermillion accent, hairline grid motif.
+ * All tokens live here. Components never hardcode colors.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+
+  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-signal: var(--signal);
+  --color-signal-soft: var(--signal-soft);
+  --color-slate-quiet: var(--slate-quiet);
+
+  --spacing-gutter: 1.5rem;
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  --radius: 2px;
+
+  /* Foundation */
+  --paper: oklch(0.968 0.008 85);
+  --paper-deep: oklch(0.938 0.011 85);
+  --ink: oklch(0.19 0.008 65);
+  --rule: oklch(0.19 0.008 65 / 14%);
+  --rule-strong: oklch(0.19 0.008 65 / 34%);
+  --signal: oklch(0.56 0.19 32);
+  --signal-soft: oklch(0.56 0.19 32 / 12%);
+  --slate-quiet: oklch(0.52 0.02 240);
+
+  /* shadcn mapping */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: oklch(0.985 0.006 85);
+  --card-foreground: var(--ink);
+  --popover: oklch(0.985 0.006 85);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--paper);
+  --secondary: var(--paper-deep);
+  --secondary-foreground: var(--ink);
+  --muted: var(--paper-deep);
+  --muted-foreground: oklch(0.47 0.012 70);
+  --accent: var(--signal);
+  --accent-foreground: oklch(0.98 0.01 85);
+  --destructive: oklch(0.55 0.2 27);
+  --destructive-foreground: oklch(0.98 0.01 85);
+  --border: var(--rule);
+  --input: var(--rule-strong);
+  --ring: var(--signal);
+}
+
+.dark,
+[data-surface="ink"] {
+  --paper: oklch(0.17 0.008 65);
+  --paper-deep: oklch(0.21 0.009 65);
+  --ink: oklch(0.94 0.006 85);
+  --rule: oklch(0.94 0.006 85 / 16%);
+  --rule-strong: oklch(0.94 0.006 85 / 32%);
+  --signal: oklch(0.68 0.16 35);
+  --signal-soft: oklch(0.68 0.16 35 / 15%);
+  --slate-quiet: oklch(0.66 0.025 240);
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: oklch(0.21 0.009 65);
+  --card-foreground: var(--ink);
+  --popover: oklch(0.21 0.009 65);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: oklch(0.17 0.008 65);
+  --secondary: var(--paper-deep);
+  --secondary-foreground: var(--ink);
+  --muted: var(--paper-deep);
+  --muted-foreground: oklch(0.72 0.012 80);
+  --accent: var(--signal);
+  --border: var(--rule);
+  --input: var(--rule-strong);
+}
+
+/*
+ * Section-scoped inverted surface.
+ * Tailwind resolves --color-* at :root, so a local surface must override the
+ * --color-* names directly for descendants to inherit the inverted values.
+ */
+[data-surface="ink"] {
+  --color-paper: oklch(0.17 0.008 65);
+  --color-paper-deep: oklch(0.21 0.009 65);
+  --color-ink: oklch(0.94 0.006 85);
+  --color-rule: oklch(0.94 0.006 85 / 16%);
+  --color-rule-strong: oklch(0.94 0.006 85 / 32%);
+  --color-signal: oklch(0.7 0.16 38);
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
+  --color-card: var(--color-paper-deep);
+  --color-card-foreground: var(--color-ink);
+  --color-muted: var(--color-paper-deep);
+  --color-muted-foreground: oklch(0.73 0.014 80);
+  --color-accent: var(--color-signal);
+  --color-border: var(--color-rule);
+  --color-primary: var(--color-ink);
+  --color-primary-foreground: var(--color-paper);
+  color-scheme: dark;
+}
+
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv05";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-signal);
+    color: oklch(0.98 0.01 85);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+/* ---- Typographic utilities ---- */
+
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 0.94;
+}
+
+@utility meta {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+@utility rule-t {
+  border-top: 1px solid var(--color-rule);
+}
+
+@utility rule-b {
+  border-bottom: 1px solid var(--color-rule);
+}
+
+/* ---- Motion primitives ---- */
+
+@utility reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.7s var(--ease-out-soft),
+    transform 0.7s var(--ease-out-soft);
+
+  &[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility trace-line {
+  background-image: linear-gradient(
+    to bottom,
+    var(--color-rule-strong) 0 6px,
+    transparent 6px 12px
+  );
+  background-size: 1px 12px;
+  background-repeat: repeat-y;
+}
