@@ -1,0 +1,1 @@
+- Keep persistent visual preferences and their accessible controls in small, focused client components, with visual values defined in `src/styles.css` so theme changes remain centralized.

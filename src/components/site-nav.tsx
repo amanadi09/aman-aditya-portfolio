@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ArrowUpRight, X } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { navItems, profile } from "@/data/profile";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { Meta } from "@/components/primitives";
@@ -77,6 +78,7 @@ export function SiteNav() {
           </ul>
 
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <a
               href={profile.resume}
               download

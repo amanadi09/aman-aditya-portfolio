@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Download, Search } from "lucide-react";
 import { Meta } from "@/components/primitives";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const RANGES = ["7D", "30D", "90D"] as const;
@@ -32,6 +33,21 @@ export function AnalyticsPreview() {
       ),
     [query],
   );
+
+  const exportRows = () => {
+    const columns = ["Reference", "Surface", "State", "Age"];
+    const csv = [
+      columns.join(","),
+      ...rows.map((row) => [row.id, row.surface, row.state, row.age].join(",")),
+    ].join("\r\n");
+    const file = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(file);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "support-analytics-demo.csv";
+    link.click();
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="w-full">
@@ -112,19 +128,26 @@ export function AnalyticsPreview() {
               className="meta w-full bg-transparent py-1 text-foreground placeholder:text-muted-foreground focus:outline-none"
             />
           </label>
-          <span className="flex items-center gap-1.5 text-muted-foreground">
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={exportRows}
+            aria-label={`Download ${rows.length} filtered demo records as CSV`}
+            className="h-8 rounded-none px-2 text-muted-foreground hover:text-accent"
+          >
             <Download className="h-3.5 w-3.5" aria-hidden />
             <Meta>CSV</Meta>
-          </span>
+          </Button>
         </div>
 
         {/* grid */}
-        <table className="w-full border-collapse">
+        <table className="w-full table-fixed border-collapse">
           <caption className="sr-only">Concept data grid of investigation records</caption>
           <thead>
             <tr className="border-b border-[var(--color-rule)]">
               {["Ref", "Surface", "State", "Age"].map((h) => (
-                <th key={h} scope="col" className="px-4 py-2 text-left">
+                <th key={h} scope="col" className="px-2 py-2 text-left sm:px-4">
                   <Meta>{h}</Meta>
                 </th>
               ))}
@@ -133,10 +156,10 @@ export function AnalyticsPreview() {
           <tbody>
             {rows.map((r) => (
               <tr key={r.id} className="border-b border-[var(--color-rule)] last:border-0">
-                <td className="px-4 py-2.5 font-mono text-xs">{r.id}</td>
-                <td className="px-4 py-2.5 text-sm">{r.surface}</td>
-                <td className="px-4 py-2.5 text-sm text-muted-foreground">{r.state}</td>
-                <td className="px-4 py-2.5 text-right font-mono text-xs text-muted-foreground">
+                <td className="px-2 py-2.5 font-mono text-xs sm:px-4">{r.id}</td>
+                <td className="px-2 py-2.5 text-sm sm:px-4">{r.surface}</td>
+                <td className="px-2 py-2.5 text-sm text-muted-foreground sm:px-4">{r.state}</td>
+                <td className="px-2 py-2.5 text-right font-mono text-xs text-muted-foreground sm:px-4">
                   {r.age}
                 </td>
               </tr>
@@ -152,20 +175,8 @@ export function AnalyticsPreview() {
         </table>
 
         <div className="flex items-center justify-between px-4 py-2.5">
-          <Meta>Page 1 of 12</Meta>
-          <div className="flex gap-1" aria-hidden>
-            {[1, 2, 3].map((p) => (
-              <span
-                key={p}
-                className={cn(
-                  "meta px-1.5",
-                  p === 1 ? "text-foreground" : "text-muted-foreground",
-                )}
-              >
-                {p}
-              </span>
-            ))}
-          </div>
+          <Meta>{rows.length} demo {rows.length === 1 ? "record" : "records"}</Meta>
+          <Meta>Concept data</Meta>
         </div>
       </div>
       <p className="mt-2 text-right">

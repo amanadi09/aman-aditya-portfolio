@@ -1,0 +1,3 @@
+- [x] Add accessible, persistent light/dark themes using the selected graphite-and-mint palette.
+- [x] Make selected work browsable through an interactive magazine-style project selector.
+- [x] Validate theme switching, project selection, CSV export, responsive layout, and the production build.
