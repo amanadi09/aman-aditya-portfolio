@@ -15,8 +15,7 @@ export const profile = {
   phone: "+91 7979928386",
   phoneHref: "tel:+917979928386",
   linkedin: "https://www.linkedin.com/in/aman-adi/",
-  /** CONFIG: paste the full GitHub profile URL here */
-  github: "",
+  github: "https://github.com/amanadi09",
   resume: "/aman-aditya-resume.pdf",
   profileImage: "/aman-aditya-profile.png",
   summary:

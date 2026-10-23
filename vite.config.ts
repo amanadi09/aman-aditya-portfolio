@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 import { nitro } from "nitro/vite";
 
-export default defineConfig(({ mode }) => ({
+export default defineConfig(() => ({
   server: {
     host: true,
     port: 8080,
@@ -18,8 +18,8 @@ export default defineConfig(({ mode }) => ({
       server: { entry: "server" },
     }),
     viteReact(),
-    // Vercel-native output only for real production builds (vite build);
-    // dev-mode builds keep the default dist output.
-    ...(mode === "production" ? [nitro({ preset: "vercel" })] : []),
+    // Vercel-native output only when actually building on Vercel (it sets
+    // VERCEL=1); other production builds keep the default dist/ output.
+    ...(process.env["VERCEL"] ? [nitro({ preset: "vercel" })] : []),
   ],
 }));
